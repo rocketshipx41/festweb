@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The public-facing functionality of the plugin.
  *
@@ -171,6 +170,7 @@ class Festweb_Public {
     public function festival_info($atts = [])
     {
         $this->get_attributes($atts);
+        $artist_img_path = get_option('festweb_artist_img_path');
         ob_start();
         if ( $this->atts['festival_id'] ) {
             echo '<div class="row">';
@@ -206,10 +206,12 @@ class Festweb_Public {
     {
         $artist_slug = get_query_var('artist');
         $artist_info = $this->festweb_db->get_artist_details($artist_slug);
+        $artist_img_path = get_option('festweb_artist_img_path');
         ob_start();
         echo '<div class="row">';
         echo '<div class="col-12">';
         echo '<h3>' . $artist_info->name . '</h3>';
+        echo '<img src="' . $artist_img_path . $artist_info->photo . '" alt="' . $artist_info->artist . '"/>';
         echo '<p>' . $artist_info->description . '</p>';
         echo '<p><strong>Personnel:</strong></p>';
         echo '<ul>' . $artist_info->personnel . '</ul>';
