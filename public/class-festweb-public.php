@@ -127,6 +127,7 @@ class Festweb_Public {
     {
         add_shortcode( 'festweb_festival', array( $this, 'festival_info' ) );
         add_shortcode( 'festweb_artist', array( $this, 'artist_details' ) );
+	add_shortcode( 'festweb_test', array( $this, 'db_check' ) );
     }
 
     /**
@@ -232,6 +233,15 @@ class Festweb_Public {
 //        echo '<pre>' . print_r($artist_info, true) . '</pre>';
         echo '</div>';
         echo '</div>';
+        $output = ob_get_contents();
+        ob_end_clean();
+        return $output;
+    }
+
+    public function db_check()
+    {
+        ob_start();
+        echo '<p>db: ' . $this->festweb_db->get_last_error() . '</p>';
         $output = ob_get_contents();
         ob_end_clean();
         return $output;
